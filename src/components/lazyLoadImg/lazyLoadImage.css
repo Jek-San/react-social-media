@@ -1,0 +1,42 @@
+.lazy-load-container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 250px;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  /* Adjust spinner width to fill the container */
+  height: 750px;
+  /* Adjust spinner height to fill the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner::before {
+  content: "";
+  width: 40px;
+  /* Customize spinner size */
+  height: 40px;
+  /* Customize spinner size */
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
