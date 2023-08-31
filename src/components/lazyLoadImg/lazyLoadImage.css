@@ -1,23 +1,19 @@
 .lazy-load-container {
   position: relative;
-  margin-top: 20px;
-  width: 100%;
-  min-height: 250px;
 }
 
 .loading-spinner {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 100%;
-  /* Adjust spinner width to fill the container */
-  height: 750px;
-  /* Adjust spinner height to fill the container */
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
+
 
 .loading-spinner::before {
   content: "";
