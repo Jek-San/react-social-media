@@ -62,7 +62,7 @@
 
   margin-top: 20px;
   width: 100%;
-  min-height: 350px;
+
   /* Keep this if you want to set a minimum height for the container */
   max-height: 750px;
   object-fit: contain;

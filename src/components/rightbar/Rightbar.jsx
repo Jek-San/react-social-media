@@ -1,77 +1,109 @@
 import LazyLoadImage from "../lazyLoadImg/LazyLoadImage"
 import "./rightbar.css"
 
-import React from "react"
+import { Users } from "../../dummyData"
 
-const Rightbar = () => {
+import React from "react"
+import Online from "../online/Online"
+const ProfileRightbar = () => {
+  return (
+    <>
+      <h4 className="rightbarTitle">User Informaation</h4>
+      <div className="rightbarInfo">
+        <div className="rightbarInfoItem">
+          <span className="rightbarInfoKey">City:</span>
+          <span className="rightbarInfoValue">New York</span>
+        </div>
+        <div className="rightbarInfoItem">
+          <span className="rightbarInfoKey">From:</span>
+          <span className="rightbarInfoValue">Madrid</span>
+        </div>
+        <div className="rightbarInfoItem">
+          <span className="rightbarInfoKey">Relationship:</span>
+          <span className="rightbarInfoValue">Single</span>
+        </div>
+      </div>
+      <div className="rightbarTitle">User friends</div>
+      <div className="rightbarFollowings">
+        <div className="rightbarFollowings">
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/1.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/2.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/3.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/4.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/5.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+          <div className="rightbarFollowing">
+            <img
+              src="/assets/person/6.jpeg"
+              alt=""
+              className="rightbarFollowingImg"
+            />
+            <span className="rightbarFollowingName">John Wick</span>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+const HomeRightbar = () => {
+  return (
+    <>
+      <div className="birthdayContainer">
+        <img className="birthdayImg" src="/assets/gift.png" alt="" />
+        <span className="birthdayText">
+          <b>Pola Foster</b> and <b>3 other friend</b>
+        </span>
+      </div>
+      <LazyLoadImage className="rightbarAd" src="/assets/ad.png" alt="" />
+      <h4 className="rightbarTitle">Online Friend</h4>
+      <ul className="rightbarFriendList">
+        {Users.map((u) => (
+          <Online key={u.id} user={u} />
+        ))}
+      </ul>
+    </>
+  )
+}
+
+const Rightbar = ({ profile }) => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <div className="birthdayContainer">
-          <img className="birthdayImg" src="/assets/gift.png" alt="" />
-          <span className="birthdayText">
-            <b>Pola Foster</b> and <b>3 other friend</b>
-          </span>
-        </div>
-        <LazyLoadImage className="rightbarAd" src="/assets/ad.png" alt="" />
-        <h4 className="rightbarTitle">Online Friend</h4>
-        <ul className="rightbarFriendList">
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                className="rightbarProfileImg"
-                src="/assets/person/3.jpeg"
-                alt=""
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">John Wick</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                className="rightbarProfileImg"
-                src="/assets/person/3.jpeg"
-                alt=""
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">John Wick</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                className="rightbarProfileImg"
-                src="/assets/person/3.jpeg"
-                alt=""
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">John Wick</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                className="rightbarProfileImg"
-                src="/assets/person/3.jpeg"
-                alt=""
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">John Wick</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                className="rightbarProfileImg"
-                src="/assets/person/3.jpeg"
-                alt=""
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">John Wick</span>
-          </li>
-        </ul>
+        {profile ? <ProfileRightbar /> : <HomeRightbar /> }
       </div>
     </div>
   )
