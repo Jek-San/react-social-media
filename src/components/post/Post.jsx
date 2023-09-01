@@ -6,6 +6,7 @@ import LazyLoadImage from "../lazyLoadImg/LazyLoadImage"
 import { useState } from "react"
 
 function Post({ post }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
   const usersMap = Users.reduce((acc, user) => {
     console.log("user: ", user)
     acc[user.id] = user
@@ -27,7 +28,7 @@ function Post({ post }) {
         <div className="postTop">
           <div className="postTopLeft">
             <img
-              src={usersMap[post.userId]?.profilePicture}
+              src={PF+usersMap[post.userId]?.profilePicture}
               alt=""
               className="postProfileImg" // Apply the className here
             />
@@ -43,7 +44,7 @@ function Post({ post }) {
         <div className="postCenter">
           <span className="postText">{post?.desc} </span>
           <LazyLoadImage
-            src={post?.photo}
+            src={PF + post?.photo}
             alt=""
             className="postImg" // Apply the className here
           />
