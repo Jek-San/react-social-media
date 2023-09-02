@@ -5,7 +5,7 @@ export const Topbar = () => {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <Link to={"/"}>
+        <Link className="link" to={"/"}>
           <span className="logo">SocialApp</span>
         </Link>
       </div>

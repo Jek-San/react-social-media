@@ -1,22 +1,34 @@
 import "./post.css"
-import { Users } from "../../dummyData"
-import { MoreVert } from "@mui/icons-material"
 
+import { MoreVert } from "@mui/icons-material"
+import { Link } from "react-router-dom"
 import LazyLoadImage from "../lazyLoadImg/LazyLoadImage"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import moment from "moment"
 
 function Post({ post }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
-  const usersMap = Users.reduce((acc, user) => {
-    console.log("user: ", user)
-    acc[user.id] = user
-    console.log("acc: ", acc[user.id])
-    return acc
-  }, {})
 
-  const [like, setLike] = useState(post.like)
+  useEffect(() => {
+    const fetchUser = async () => {
+      axios
+        .get(`/users?userId=${post.userId}`)
+        .then((res) => {
+          setUser(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    fetchUser()
+  }, [post])
+
+  const [like, setLike] = useState(post.likes.length)
   const [isLike, setIsLike] = useState(false)
-  
+  const [user, setUser] = useState({})
+
   const likeHandler = () => {
     setLike(isLike ? like - 1 : like + 1)
     setIsLike(!isLike)
@@ -27,15 +39,17 @@ function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={PF+usersMap[post.userId]?.profilePicture}
-              alt=""
-              className="postProfileImg" // Apply the className here
-            />
-            <span className="postUsername">
-              {usersMap[post.userId]?.username}
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={PF + user.profilePicture || PF + "person/noAvatar.png"}
+                alt=""
+                className="postProfileImg" // Apply the className here
+              />
+            </Link>
+            <span className="postUsername">{user.username}</span>
+            <span className="postDate">
+              {moment(post?.createdAt).fromNow()}
             </span>
-            <span className="postDate">{post?.date}</span>
           </div>
           <div className="postTopRight">
             <MoreVert className="" />
@@ -44,7 +58,7 @@ function Post({ post }) {
         <div className="postCenter">
           <span className="postText">{post?.desc} </span>
           <LazyLoadImage
-            src={PF + post?.photo}
+            src={PF + post?.img}
             alt=""
             className="postImg" // Apply the className here
           />

@@ -5,18 +5,21 @@ import Register from "./pages/register/Register"
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Outlet,
 } from "react-router-dom"
-const user = true;
+import { AuthContext, AuthContextProvider } from "./context/AuthContext";
+import PrivateRoute from "./PrivateRoute"; // Import your custom PrivateRoute component
+import NotFound from "./pages/NotFound";
+import { useContext } from "react";
+
 const Layout = () => {
   return (
     <>
-
       <Outlet />
     </>
   )
 }
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,43 +27,40 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (user ? <Home /> :
-          <Login />),
+        element: <PrivateRoute element={<Home />} />,
       },
-
       {
         path: "/profile/:username",
-        element: <Profile />,
+        element: <PrivateRoute element={<Profile />} />,
       },
-
       {
         path: "/login",
-        element: (
-          user ? <Home /> :
-            <Login />),
+        element: <Login />,
       },
       {
         path: "/register",
-        element: (
-          user ? <Home /> :
-            <Register />
-
-        ),
+        element: <Register />,
+      },
+      {
+        path: "*",
+        element: <PrivateRoute element={<NotFound />} />,
       },
     ],
   },
-
-
   {
     path: "/"
   }
 ])
 
 function App() {
+  const { user } = useContext(AuthContext)
+  console.log(user)
   return (
     <div className="app">
       <div className="container">
-        <RouterProvider router={router} />
+        <AuthContextProvider>
+          <RouterProvider router={router} />
+        </AuthContextProvider>
       </div>
     </div>
   )
