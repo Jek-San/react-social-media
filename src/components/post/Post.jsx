@@ -3,12 +3,21 @@ import "./post.css"
 import { MoreVert } from "@mui/icons-material"
 import { Link } from "react-router-dom"
 import LazyLoadImage from "../lazyLoadImg/LazyLoadImage"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import moment from "moment"
+import { AuthContext } from "../../context/AuthContext"
 
 function Post({ post }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  const { user: currentUser } = useContext(AuthContext)
+  const [like, setLike] = useState(post.likes.length)
+  const [isLike, setIsLike] = useState(false)
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    setIsLike(post.likes.includes(currentUser._id))
+  })
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,11 +34,15 @@ function Post({ post }) {
     fetchUser()
   }, [post])
 
-  const [like, setLike] = useState(post.likes.length)
-  const [isLike, setIsLike] = useState(false)
-  const [user, setUser] = useState({})
+  const likeHandler = async () => {
+    try {
+      const res = await axios.put(`/posts/${post._id}/like`, {
+        userId: currentUser._id,
+      })
+    } catch (error) {
+      console.log(error)
+    }
 
-  const likeHandler = () => {
     setLike(isLike ? like - 1 : like + 1)
     setIsLike(!isLike)
   }
@@ -41,7 +54,11 @@ function Post({ post }) {
           <div className="postTopLeft">
             <Link to={`/profile/${user.username}`}>
               <img
-                src={PF + user.profilePicture || PF + "person/noAvatar.png"}
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "person/noAvatar.png"
+                }
                 alt=""
                 className="postProfileImg" // Apply the className here
               />
@@ -57,6 +74,7 @@ function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc} </span>
+
           <LazyLoadImage
             src={PF + post?.img}
             alt=""

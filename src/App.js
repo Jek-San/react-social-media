@@ -11,6 +11,7 @@ import { AuthContext, AuthContextProvider } from "./context/AuthContext";
 import PrivateRoute from "./PrivateRoute"; // Import your custom PrivateRoute component
 import NotFound from "./pages/NotFound";
 import { useContext } from "react";
+import PublicRoute from "./PublicRoute";
 
 const Layout = () => {
   return (
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: <PublicRoute element={<Login />} />,
       },
       {
         path: "/register",

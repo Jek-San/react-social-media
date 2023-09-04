@@ -3,14 +3,18 @@ import "./login.css"
 import { loginCall } from "../../apiCalls"
 import { AuthContext } from "../../context/AuthContext"
 import CircularProgress from "@mui/material/CircularProgress"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 
 function Login() {
   const navigate = useNavigate()
   const email = useRef()
   const password = useRef()
   const { user, isFetching, error, dispatch } = useContext(AuthContext)
+  if (user) {
+    navigate("/") // Redirect to the home page
+  }
 
+  // Check if the user is already authenticated
   const handleClick = async (e) => {
     e.preventDefault()
     console.log("cliked")

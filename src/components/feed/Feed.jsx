@@ -1,14 +1,16 @@
 import Post from "../post/Post"
 import Share from "../share/Share"
 import "./feed.css"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import axios from "axios"
+import { AuthContext } from "../../context/AuthContext"
 
 function Feed({ username }) {
   const [posts, setPosts] = useState([])
+  const { user } = useContext(AuthContext)
   const url = username
-    ? "/posts/profile/ihsanzack"
-    : "/posts/timeline/64ee6e0f9a027f2a264a6616"
+    ? `/posts/profile/${user.username}`
+    : `/posts/timeline/${user._id}`
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +18,6 @@ function Feed({ username }) {
         .get(url)
         .then((response) => {
           setPosts(response.data)
-        
         })
         .catch((error) => {
           // Handle errors here
@@ -25,7 +26,7 @@ function Feed({ username }) {
       // Use the full URL including the proxy prefix
     }
     fetchData()
-  }, [username])
+  }, [username, user._id])
 
   return (
     <div className="feed">

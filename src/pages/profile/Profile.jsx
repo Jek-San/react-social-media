@@ -42,7 +42,11 @@ function Profile() {
               />
               <img
                 className="profileUserImg"
-                src={PF + user.profilePicture || PF + "person/noAvatar.png"}
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "person/noAvatar.png"
+                }
                 alt=""
               />
             </div>
