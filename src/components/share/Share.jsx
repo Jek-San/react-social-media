@@ -1,6 +1,6 @@
 import "./share.css"
 import PermMediaIcon from "@mui/icons-material/PermMedia"
-import { Label, Room, EmojiEmotions } from "@mui/icons-material"
+import { Label, Room, EmojiEmotions, Cancel } from "@mui/icons-material"
 import { useContext, useRef, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import axios from "axios"
@@ -21,23 +21,22 @@ function Share() {
     }
     if (file) {
       const data = new FormData()
-      const fileName = Date.now() + file.name
+      const fileName = file.name
       data.append("file", file)
 
       data.append("name", fileName)
-      // newPost.img = fileName
-      console.log("data :", data)
-      console.log("newpost :", newPost)
+
       try {
         const res = await axios.post("/upload", data)
-        newPost.img = res.data.data
+        newPost.img = res.data.pathName
       } catch (err) {
         console.log(err)
       }
     }
     try {
-     const postRes = await axios.post("/posts", newPost)
-      console.log(postRes.data); 
+      const postRes = await axios.post("/posts", newPost)
+      console.log(postRes.data)
+      window.location.reload()
     } catch (error) {
       console.log(error)
     }
@@ -62,6 +61,17 @@ function Share() {
           />
         </div>
         <hr className="shareHr" />
+        {file && (
+          <div className="shareImgContainer">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <Cancel
+              className="shareCancel"
+              onClick={() => {
+                setFile(null)
+              }}
+            />
+          </div>
+        )}
         <form
           encType="multipart/form-data"
           className="shareBottom"
@@ -72,6 +82,7 @@ function Share() {
               <PermMediaIcon htmlColor="tomato" className="shareIcon" />
               <span className="shareOptionText">Photo or Video</span>
               <input
+                hidden
                 type="file"
                 id="file"
                 accept=".png,.jpeg,.jpg"

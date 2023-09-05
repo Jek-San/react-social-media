@@ -93,7 +93,7 @@ function Post({ post }) {
             <span className="postLikeCounter">{like}</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment}</span>
+            <span className="postCommentText">{post.comment} comment</span>
           </div>
         </div>
       </div>

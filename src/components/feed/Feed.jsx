@@ -14,16 +14,16 @@ function Feed({ username }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      axios
-        .get(url)
-        .then((response) => {
-          setPosts(response.data)
+      try {
+        const response = await axios.get(url)
+        const sortedPosts = response.data.sort((p1, p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt)
         })
-        .catch((error) => {
-          // Handle errors here
-          console.error(error)
-        })
-      // Use the full URL including the proxy prefix
+        setPosts(sortedPosts)
+      } catch (error) {
+        // Handle errors here
+        console.error(error)
+      }
     }
     fetchData()
   }, [username, user._id])
@@ -31,7 +31,7 @@ function Feed({ username }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        {(!username || username === user.username) && <Share />}
         {posts.map((p) => (
           <Post key={p._id} post={p} />
         ))}

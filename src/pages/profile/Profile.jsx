@@ -37,7 +37,11 @@ function Profile() {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={PF + user.coverPicture}
+                src={
+                  user.coverPicture
+                    ? PF + user.coverPicture
+                    : PF + "post/1.jpeg"
+                }
                 alt=""
               />
               <img
