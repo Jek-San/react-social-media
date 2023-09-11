@@ -9,7 +9,7 @@ function Feed({ username }) {
   const [posts, setPosts] = useState([])
   const { user } = useContext(AuthContext)
   const url = username
-    ? `/posts/profile/${user.username}`
+    ? `/posts/profile/${username}`
     : `/posts/timeline/${user._id}`
 
   useEffect(() => {

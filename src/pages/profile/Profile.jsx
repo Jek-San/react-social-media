@@ -14,11 +14,10 @@ function Profile() {
   const username = useParams().username
   useEffect(() => {
     const fetchUser = async () => {
-      axios
+      await axios
         .get(`/users?username=${username}`)
         .then((res) => {
           setUser(res.data)
-          console.log(user)
         })
         .catch((err) => {
           console.log(err)
