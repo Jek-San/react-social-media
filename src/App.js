@@ -78,6 +78,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={user ? <Home /> : <Login />} />
           <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/messenger" element={<Messenger />} />
         </Routes>
       </Router>
     </div>
