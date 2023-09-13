@@ -71,7 +71,11 @@ import { Topbar } from "./components/topbar/Topbar";
 //   )
 // }
 function App() {
-  const { user } = useContext(AuthContext)
+  const { user, isFetching } = useContext(AuthContext)
+  if (isFetching) {
+    // You can render a loading indicator here, or just return null.
+    return null;
+  }
   return (
     <div className="App">
       <Router>

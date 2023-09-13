@@ -2,6 +2,7 @@ import "./messenger.css"
 import { Topbar } from "../../components/topbar/Topbar"
 import Conversation from "../../components/conversation/Conversation"
 import Message from "../../components/message/Message"
+import Chat from "../../components/chat/Chat"
 
 export default function Messenger() {
   return (
@@ -25,11 +26,11 @@ export default function Messenger() {
               <Message own={true} />
               <Message />
               <Message />
+              <Message own={true} />
               <Message />
               <Message />
               <Message />
-              <Message />
-              <Message />
+              <Message own={true} />
               <Message />
               <Message />
               <Message />
@@ -51,7 +52,12 @@ export default function Messenger() {
           </div>
         </div>
         <div className="chatOnline">
-          <div className="chatOnlineWrapper">Online</div>
+          <div className="chatOnlineWrapper">
+            <Chat />
+            <Chat />
+            <Chat />
+            <Chat />
+          </div>
         </div>
       </div>
     </>
