@@ -14,6 +14,8 @@ export const LoginFailure = (error) => ({
 })
 
 
+
+
 export const Follow = (userId) => ({
   type: "FOLLOW",
   payload: userId
@@ -23,3 +25,8 @@ export const Unfollow = (userId) => ({
   type: "UNFOLLOW",
   payload: userId
 })
+
+export const FETCH_SUCCESS = () => ({
+  type: "FETCH_SUCCESS"
+});
+

@@ -34,6 +34,11 @@ const AuthReducer = (state, action) => {
           followings: state.user.followings.filter(followings => followings !== action.payload)
         }
       }
+    case "FETCH_SUCCESS": // Handle the FETCH_SUCCESS action type
+      return {
+        ...state,
+        isFetching: false
+      };
 
     default:
       return state

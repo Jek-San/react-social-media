@@ -5,7 +5,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 export const Topbar = () => {
   const { user } = useContext(AuthContext)
-  console.log("topbar", user)
+
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
   return (

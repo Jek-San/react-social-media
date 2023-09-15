@@ -76,6 +76,7 @@ function App() {
     // You can render a loading indicator here, or just return null.
     return null;
   }
+
   return (
     <div className="App">
       <Router>

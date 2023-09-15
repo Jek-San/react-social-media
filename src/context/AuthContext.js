@@ -41,21 +41,9 @@ export const AuthContextProvider = ({ children }) => {
     }
 
 
-    // Listen for the beforeunload event to save user data before a page unload (e.g., refresh)
-    // const handleBeforeUnload = () => {
-    //   const { user } = state;
-    //   if (user) {
-    //     // Save user data to localStorage
-    //     localStorage.setItem("user", JSON.stringify(user));
-    //   }
-    // };
+    dispatch({ type: "FETCH_SUCCESS" });
 
-    // window.addEventListener("beforeunload", handleBeforeUnload);
 
-    // // Cleanup the event listener when the component unmounts
-    // return () => {
-    //   window.removeEventListener("beforeunload", handleBeforeUnload);
-    // };
   }, []);
 
   return (
